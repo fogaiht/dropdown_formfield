@@ -15,7 +15,7 @@ class DropDownFormField extends FormField<dynamic> {
   final bool filled;
   final EdgeInsets contentPadding;
   final Color hintColorText;
-  final Color selectedColorText;
+  final TextStyle itemsTextStyle;
 
   DropDownFormField({
     FormFieldSetter<dynamic> onSaved,
@@ -24,7 +24,7 @@ class DropDownFormField extends FormField<dynamic> {
     this.titleText = 'Title',
     this.hintText = 'Select one option',
     this.hintColorText,
-    this.selectedColorText,
+    this.itemsTextStyle,
     this.required = false,
     this.errorText = 'Please select one option',
     this.value,
@@ -68,7 +68,7 @@ class DropDownFormField extends FormField<dynamic> {
                             child: Text(
                               item[textField],
                               overflow: TextOverflow.ellipsis,
-                              style: selectedColorText == null ? null : TextStyle(color: selectedColorText),
+                              style: itemsTextStyle,
                             ),
                           );
                         }).toList(),
