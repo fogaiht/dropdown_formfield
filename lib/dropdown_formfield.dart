@@ -14,23 +14,25 @@ class DropDownFormField extends FormField<dynamic> {
   final Function onChanged;
   final bool filled;
   final EdgeInsets contentPadding;
+  final Color hintColorText;
 
-  DropDownFormField(
-      {FormFieldSetter<dynamic> onSaved,
-      FormFieldValidator<dynamic> validator,
-      bool autovalidate = false,
-      this.titleText = 'Title',
-      this.hintText = 'Select one option',
-      this.required = false,
-      this.errorText = 'Please select one option',
-      this.value,
-      this.dataSource,
-      this.textField,
-      this.valueField,
-      this.onChanged,
-      this.filled = true,
-      this.contentPadding = const EdgeInsets.fromLTRB(12, 12, 8, 0)})
-      : super(
+  DropDownFormField({
+    FormFieldSetter<dynamic> onSaved,
+    FormFieldValidator<dynamic> validator,
+    bool autovalidate = false,
+    this.titleText = 'Title',
+    this.hintText = 'Select one option',
+    this.hintColorText,
+    this.required = false,
+    this.errorText = 'Please select one option',
+    this.value,
+    this.dataSource,
+    this.textField,
+    this.valueField,
+    this.onChanged,
+    this.filled = true,
+    this.contentPadding = const EdgeInsets.fromLTRB(12, 12, 8, 0),
+  }) : super(
           onSaved: onSaved,
           validator: validator,
           autovalidate: autovalidate,
@@ -51,7 +53,7 @@ class DropDownFormField extends FormField<dynamic> {
                         isExpanded: true,
                         hint: Text(
                           hintText,
-                          style: TextStyle(color: Colors.grey.shade500),
+                          style: TextStyle(color: hintColorText ?? Colors.grey.shade500),
                         ),
                         value: value == '' ? null : value,
                         onChanged: (dynamic newValue) {
@@ -61,8 +63,7 @@ class DropDownFormField extends FormField<dynamic> {
                         items: dataSource.map((item) {
                           return DropdownMenuItem<dynamic>(
                             value: item[valueField],
-                            child: Text(item[textField],
-                                overflow: TextOverflow.ellipsis),
+                            child: Text(item[textField], overflow: TextOverflow.ellipsis),
                           );
                         }).toList(),
                       ),
@@ -71,9 +72,7 @@ class DropDownFormField extends FormField<dynamic> {
                   SizedBox(height: state.hasError ? 5.0 : 0.0),
                   Text(
                     state.hasError ? state.errorText : '',
-                    style: TextStyle(
-                        color: Colors.redAccent.shade700,
-                        fontSize: state.hasError ? 12.0 : 0.0),
+                    style: TextStyle(color: Colors.redAccent.shade700, fontSize: state.hasError ? 12.0 : 0.0),
                   ),
                 ],
               ),
